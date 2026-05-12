@@ -1,1 +1,121 @@
 
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Audio-Reactive Image Glitch Lab</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+  <main class="app">
+    <header class="header">
+      <a href="../index.html" class="back-link">← Späť na portál</a>
+
+      <div class="hero">
+        <p class="tag">MSAP Multimedia Project</p>
+        <h1>Audio-Reactive Image Glitch Lab</h1>
+        <p class="hero-text">
+          Interaktívna webová aplikácia, ktorá prepája spracovanie obrazu
+          a analýzu zvuku. Obrázok sa deformuje podľa hlasitosti a frekvenčného
+          spektra nahratého audio súboru.
+        </p>
+      </div>
+    </header>
+
+    <section class="panel upload-panel">
+      <div class="upload-card">
+        <label for="imageInput">Nahrať obrázok</label>
+        <input type="file" id="imageInput" accept="image/*" />
+      </div>
+
+      <div class="upload-card">
+        <label for="audioInput">Nahrať audio</label>
+        <input type="file" id="audioInput" accept="audio/*" />
+      </div>
+
+      <div class="button-row">
+        <button id="playButton" type="button">Play</button>
+        <button id="stopButton" type="button">Stop</button>
+        <button id="downloadButton" type="button">Download PNG</button>
+      </div>
+    </section>
+
+    <section class="workspace">
+      <div class="canvas-card">
+        <h2>Original image</h2>
+        <canvas id="originalCanvas"></canvas>
+      </div>
+
+      <div class="canvas-card result-card">
+        <h2>Audio-reactive output</h2>
+        <canvas id="glitchCanvas"></canvas>
+      </div>
+    </section>
+
+    <section class="panel controls">
+      <h2>Nastavenia efektu</h2>
+
+      <div class="slider-grid">
+        <label>
+          Glitch intensity
+          <input type="range" id="glitchIntensity" min="0" max="100" value="45" />
+        </label>
+
+        <label>
+          RGB shift
+          <input type="range" id="rgbShift" min="0" max="60" value="18" />
+        </label>
+
+        <label>
+          Wave distortion
+          <input type="range" id="waveDistortion" min="0" max="60" value="22" />
+        </label>
+
+        <label>
+          Brightness pulse
+          <input type="range" id="brightnessPulse" min="0" max="100" value="35" />
+        </label>
+      </div>
+    </section>
+
+    <section class="panel spectrum-panel">
+      <h2>Audio spectrum</h2>
+      <canvas id="spectrumCanvas"></canvas>
+    </section>
+
+    <section class="info">
+      <article>
+        <h3>1. Image processing</h3>
+        <p>
+          Obrázok sa načíta do HTML Canvas elementu, kde sa dá ďalej upravovať
+          po jednotlivých riadkoch a pixeloch.
+        </p>
+      </article>
+
+      <article>
+        <h3>2. Audio analysis</h3>
+        <p>
+          Web Audio API analyzuje audio signál a získava hodnoty hlasitosti
+          a frekvenčného spektra.
+        </p>
+      </article>
+
+      <article>
+        <h3>3. Reactive glitch</h3>
+        <p>
+          Získané audio dáta riadia vizuálne efekty ako RGB posun, vlnové
+          skreslenie, zmena jasu a glitch deformácia.
+        </p>
+      </article>
+    </section>
+  </main>
+
+  <audio id="audioPlayer"></audio>
+
+  <script src="script.js"></script>
+</body>
+</html>
