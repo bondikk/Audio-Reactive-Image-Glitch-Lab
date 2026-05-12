@@ -64,3 +64,45 @@ imageInput.addEventListener("change", function () {
 
   loadImage(file);
 });
+
+let audioLoaded = false;
+
+function loadAudio(file) {
+  const audioUrl = URL.createObjectURL(file);
+
+  audioPlayer.src = audioUrl;
+  audioLoaded = true;
+}
+
+audioInput.addEventListener("change", function () {
+  const file = audioInput.files[0];
+
+  if (!file) {
+    return;
+  }
+
+  loadAudio(file);
+});
+
+playButton.addEventListener("click", function () {
+  if (!audioLoaded) {
+    alert("Najprv nahraj audio súbor.");
+    return;
+  }
+
+  if (!imageLoaded) {
+    alert("Najprv nahraj obrázok.");
+    return;
+  }
+
+  audioPlayer.play();
+});
+
+stopButton.addEventListener("click", function () {
+  audioPlayer.pause();
+  audioPlayer.currentTime = 0;
+
+  if (imageLoaded && loadedImage) {
+    drawImageToCanvases(loadedImage);
+  }
+});
