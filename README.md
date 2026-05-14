@@ -1,239 +1,64 @@
-# Audio-Reactive Image Glitch Lab
+# Multimediálna Webová Služba - Portal
 
-![Project thumbnail](thumbnail.png)
+Toto je hlavný portál pre predmet, ktorý agreguje a zobrazuje všetky študentské zadania. Portál beží ako jednoduchá aplikácia v **Python Flask**.
 
-## Overview
+## 🚀 Ako spustiť portál?
 
-**Audio-Reactive Image Glitch Lab** is an interactive multimedia web application created for the MSAP course.
-
-The application combines image processing, audio analysis, and real-time visual effects. The user can upload an image and an audio file, and the image is dynamically distorted according to the audio signal.
-
-The project runs fully in the browser and does not require any backend server.
-
----
-
-## Main Idea
-
-The main idea of this project is to show how sound can control visual image deformation.
-
-The uploaded audio file is analyzed in real time using the **Web Audio API**. The extracted frequency and volume data are then used to control visual effects applied to the uploaded image through the **Canvas API**.
-
-```text
-Image + Audio Signal -> Audio Analysis -> Reactive Glitch Effect
-```
+1. Uisti sa, že máš nainštalovaný Python a `flask`:
+   ```bash
+   pip install flask
+   ```
+2. V hlavnom priečinku portáluusti:
+   ```bash
+   python app.py
+   ```
+3. Otvor si prehliadač na adrese [http://127.0.0.1:5000](http://127.0.0.1:5000).
 
 ---
 
-## Features
+## 📚 Inštrukcie pre Študentov (Ako pridať projekt)
 
-- Upload custom image
-- Upload custom audio file
-- Play and stop audio
-- Real-time audio spectrum visualization
-- Audio-reactive image distortion
-- Glitch effect
-- RGB shift effect
-- Wave distortion effect
-- Brightness pulse effect
-- Adjustable effect intensity
-- Export processed image as PNG
-- Fully client-side application
-- No backend required
+Každý študent si vybral tému (AUDIO, OBRAZ, VIDEO, TEXT, 3D MODEL). Vašou úlohou je vyvinúť **Multimediálnu webovú službu** (napr. v Pythone, Jave, alebo čisto v HTML/JS).
 
----
+Aby bol váš projekt správne zaindexovaný a zobrazený na hlavnom portáli, musíte dodržať nasledujúce konvencie!
 
-## Technologies Used
+### 1. Štruktúra priečinka
 
-- HTML5
-- CSS3
-- JavaScript
-- Canvas API
-- Web Audio API
+Váš projekt musí byť nakopírovaný do adresára `Projects/` pod názvom, ktorý reprezentuje vašu tému alebo meno. Názov priečinka sa automaticky stane názvom projektu na portáli (napr. priečinok `Moj_Audio_Projekt` sa zobrazí ako **Moj Audio Projekt**).
 
----
+Váš priečinok **MUSÍ** obsahovať:
 
-## How It Works
+- `thumbnail.png` – obrázok s **presným rozlíšením 1000 x 1000 pixelov** (pomer strán 1:1). Iné veľkosti nie sú povolené. Toto je náhľad, ktorý sa ukáže na karte portálu.
+- `index.html` – hlavný frontend rozhranie vášho zadania (toto uvidí užívateľ po rozkliknutí karty na webe).
+  - ⚠️ **Dôležité:** Váš `index.html` musí obsahovať **tlačidlo "Späť"** (odkaz `<a href="/">Späť</a>`), aby sa hodnotiteľ vedel po vyskúšaní zadania jedným klikom vrátiť na hlavný portál!
 
-1. The user uploads an image.
-2. The image is rendered into an HTML Canvas element.
-3. The user uploads an audio file.
-4. The audio signal is analyzed directly in the browser.
-5. The application extracts frequency and volume information.
-6. These audio values control the visual effects applied to the image.
-7. The final distorted image can be downloaded as a PNG file.
+### **Odovzdávanie a Nasadenie (GitHub Workflow)**
 
----
+Aby sme vedeli spravovať všetkých 80+ projektov v tomto jednom portáli, odovzdávanie prebieha výlučne cez **Git/GitHub**:
+1. Projekt nahráš **na svoj GitHub** (public repozitár).
+2. Odkaz na tvoj GitHub repozitár vložíš do učiteľovej centrálnej hodnotiacej tabuľky. Učiteľ si následne cez príkaz `git clone` stiahne tvoj projekt, kde ti ho jedným klikom priamo zo spoločného servera vyskúša.
 
-## Audio-Reactive Effects
 
-### Glitch Intensity
 
-Random horizontal parts of the image are shifted according to the current audio volume.
+### 2. Rozhranie (Frontend & Backend)
 
-### RGB Shift
+**Frontend (`index.html`)**:
+- Portál používa statické servovanie frontendov z `Projects`. Keď užívateľ klikne na vašu kartu, portál vráti tento `index.html`. 
+- Uistite sa, že do `index.html` vkladáte CSS a JS cez relatívne cesty (napr. `<script src="script.js"></script>`, alebo priamo cez inline tagy).
+- Vaša stránka musí jasne vysvetliť, ako sa má používať! Napríklad, pridať tlačidlo pre "Upload súboru".
 
-The image receives a color-channel displacement effect, which creates a digital glitch look.
+**Vylúčenie Backendu (Strictne Frontend)**:
+- Vaše zadanie **NESMIE** závisieť od akéhokoľvek vonkajšieho bežiaceho serverového backendu (žiadny Python Flask, Java Spring, Node.js Express ap.), či už lokálne ale aj na internetových službách - pretože vaše servery by po rokoch zmizli.
+- Portál a aj projekty tak musia plne fungovať a vykonávať logiku výlučne vo webovom prehliadači užívateľa na báze statických súborov.
+- Ak robíte zadanie a chcete použiť Python, použite technológiu ako **PyScript** (beží Python v prehliadači) resp. WebAssembly. Ostatné procesy kóďte pomocou moderných webových rozhraní prehliadačov (HTML5 Canvas, Web Audio API, `Three.js` WebGL atď.).
+- Jedine toto zabezpečí, že po vložení priečinka so zadaním to učiteľovi okamžite aspoň o 5 rokov bezchybne pobeží bez riešenia padnutých alebo vypnutých serverov.
 
-### Wave Distortion
+### 3. Vstup a Výstup (In/Out)
 
-The image is distorted using wave-like horizontal movement.
-
-### Brightness Pulse
-
-The brightness of the image changes according to the strength of the audio signal.
-
-### Spectrum Visualization
-
-The frequency spectrum of the uploaded audio is displayed as animated bars.
+Každé zadanie musí spĺňať podobnú in/out štruktúru:
+- **INPUT**: Rozhranie umožňuje užívateľovi nahrať multimediálny súbor (audio, video, obraz...) alebo parametre pre 3D/textový generátor prostredníctvom webového formulára alebo Drag & Drop UI.
+- **OUTPUT**: Výsledok spracovania sa musí vizualizovať/prehrať priamo na vašej stránke. Nevraciate iba čisté dáta do konzoly!
 
 ---
 
-## Project Structure
-
-```text
-Audio-Reactive-Image-Glitch-Lab/
-├── index.html
-├── style.css
-├── script.js
-├── README.md
-├── thumbnail.png
-└── .gitignore
-```
-
-| File | Description |
-|---|---|
-| `index.html` | Main HTML structure of the website |
-| `style.css` | Visual design and responsive layout |
-| `script.js` | Image processing, audio analysis and glitch effects |
-| `thumbnail.png` | Project preview image |
-| `README.md` | Project documentation |
-| `.gitignore` | Ignored system and development files |
-
----
-
-## How to Open Locally
-
-### Option 1: Download ZIP
-
-1. Open the GitHub repository.
-2. Click **Code**.
-3. Select **Download ZIP**.
-4. Extract the downloaded ZIP file.
-5. Open the extracted project folder.
-6. Double-click `index.html`.
-
-The project will open in your browser.
-
----
-
-### Option 2: Clone with Git
-
-Clone the repository:
-
-```bash
-git clone https://github.com/bondikk/Audio-Reactive-Image-Glitch-Lab.git
-```
-
-Open the project folder:
-
-```bash
-cd Audio-Reactive-Image-Glitch-Lab
-```
-
-Open the website on macOS:
-
-```bash
-open index.html
-```
-
-On Windows, open `index.html` manually by double-clicking the file.
-
-No installation, backend server, or additional dependencies are required.
-
----
-
-## How to Use
-
-1. Open `index.html` in a web browser.
-2. Click **Nahrať obrázok** and upload an image.
-3. Click **Nahrať audio** and upload an audio file.
-4. Press **Play**.
-5. Adjust the effect sliders:
-   - Glitch intensity
-   - RGB shift
-   - Wave distortion
-   - Brightness pulse
-6. Press **Stop** to stop playback.
-7. Press **Download PNG** to save the processed image.
-
----
-
-## Recommended Input Files
-
-### Image
-
-Recommended image formats:
-
-- PNG
-- JPG
-- JPEG
-- WEBP
-
-The application works best with colorful images, portraits, posters, or high-contrast pictures.
-
-### Audio
-
-Recommended audio formats:
-
-- MP3
-- WAV
-- OGG
-- M4A
-
-The best result is achieved with short audio files that have a clear rhythm, bass, or dynamic changes.
-
----
-
-## Browser Support
-
-The project should work in modern browsers that support Canvas API and Web Audio API:
-
-- Google Chrome
-- Microsoft Edge
-- Safari
-- Firefox
-
-For the best result, Google Chrome or Safari is recommended.
-
----
-
-## Educational Purpose
-
-This project demonstrates several multimedia processing concepts:
-
-- image rendering in canvas;
-- basic real-time image manipulation;
-- audio frequency analysis;
-- connection between audio data and visual effects;
-- interactive client-side multimedia processing.
-
-The project is suitable as a small experimental web application for multimedia signal and image processing.
-
----
-
-## Limitations
-
-- The project works only with files uploaded by the user.
-- The audio file must be supported by the browser.
-- Very large images may reduce performance.
-- The exported PNG contains only the current processed image, not animation or video.
-- The application does not use backend processing or permanent file storage.
-
-
----
-
-## Author
-
-**Anastasiia Bondarenko**
-
-Project created for the **MSAP** course.
+*Inšpirujte sa 3 ukážkovými projektmi (`Example_Python_Audio`, `Example_Java_Image`, `Example_HTML_3D_Viewer`), ktoré sa nachádzajú priamo v zložke `Projects`!*
